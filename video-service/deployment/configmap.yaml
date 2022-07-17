@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  configuration.yml: |-
+    application_port: 8080
+    jaeger_agent_endpoint: jaeger-service.mid.svc.cluster.local:6831
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: video-service-config
+  namespace: mid

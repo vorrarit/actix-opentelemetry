@@ -1,0 +1,3 @@
+application_port: 8080
+video_service: http://localhost:8081
+jaeger_agent_endpoint: localhost:6831

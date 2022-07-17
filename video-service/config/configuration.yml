@@ -1,0 +1,2 @@
+application_port: 8081
+jaeger_agent_endpoint: localhost:6831

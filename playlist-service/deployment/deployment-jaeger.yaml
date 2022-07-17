@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: jaeger
+  name: jaeger
+  namespace: mid
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: jaeger
+    spec:
+      containers:
+      - image: jaegertracing/all-in-one:latest
+        name: all-in-one
+        resources: {}
+status: {}

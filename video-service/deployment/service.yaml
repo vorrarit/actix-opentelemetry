@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: video-service
+  name: video-service
+  namespace: mid
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 31002
+  selector:
+    app: video-service
+  type: NodePort
+status:
+  loadBalancer: {}

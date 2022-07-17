@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: video-service
+  name: video-service
+  namespace: mid
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: video-service
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: video-service
+    spec:
+      containers:
+      - image: registry91.dev.dsl:5000/mid/video-service:0.0.1
+        name: video-service
+        resources: 
+          limits:
+            cpu: 1
+            memory: "512Mi"
+          requests:
+            cpu: 1
+            memory: "512Mi"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: video-service-config
+
+status: {}

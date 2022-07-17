@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: jaeger
+  name: jaeger-service
+  namespace: mid
+spec:
+  ports:
+  - name: agent-port
+    port: 6831
+    protocol: UDP
+    targetPort: 6831
+  - name: ui-port
+    port: 16686
+    protocol: TCP
+    targetPort: 16686
+    nodePort: 31000
+  selector:
+    app: jaeger
+  type: NodePort
+status:
+  loadBalancer: {}
