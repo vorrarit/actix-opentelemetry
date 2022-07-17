@@ -29,7 +29,7 @@ impl PlaylistService {
 
     async fn get_by_id(&self, id: i32) -> Option<Playlist> {
         if let Some(x) = self.playlists.iter().filter(|v| {
-            (**v).id == id
+            v.id == id
         }).map(|x| { x.clone() }).collect::<Vec<_>>().first() {
             let mut playlist = x.clone();
             let videos: Vec<Video> = join_all(
@@ -45,9 +45,8 @@ impl PlaylistService {
                         }
                     }
                     None
-                }
-            )
-            ).await.iter().filter(|x| { (**x).is_some() }).map(|x| (*x).clone().unwrap() ).collect();
+                })
+            ).await.into_iter().filter(|x| { x.is_some() }).map(|x| x.unwrap() ).collect();
 
             playlist.videos = Some(videos);
             return Some(playlist);

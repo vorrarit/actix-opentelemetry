@@ -2,12 +2,11 @@ mod configuration;
 
 use std::fmt::Display;
 
-use actix_web::{get, web, App, HttpServer, Responder, ResponseError, HttpResponse, middleware::Logger};
-use actix_web_opentelemetry::RequestTracing;
-use anyhow::{Context, anyhow};
+use actix_web::{get, web, App, HttpServer, Responder, ResponseError, HttpResponse};
+use anyhow::{anyhow};
 use opentelemetry::{global, sdk::propagation::TraceContextPropagator};
 use tracing_bunyan_formatter::BunyanFormattingLayer;
-use tracing_subscriber::{Registry, prelude::__tracing_subscriber_SubscriberExt, util::SubscriberInitExt, EnvFilter};
+use tracing_subscriber::{Registry, prelude::__tracing_subscriber_SubscriberExt, EnvFilter};
 
 use configuration::{Settings, get_configuration};
 
@@ -30,13 +29,9 @@ impl VideoService {
     }
 
     fn get_by_id(&self, id: i32) -> Option<Video> {
-        if let Some(x) = self.videos.iter().filter(|v| {
-            (**v).id == id
-        }).map(|x| { x.clone() }).collect::<Vec<_>>().first() {
-            return Some(x.clone());
-        } else {
-            return None;
-        }
+        self.videos.iter().filter(|v| {
+            v.id == id
+        }).collect::<Vec<_>>().first().cloned().cloned()
     }
 }
 
